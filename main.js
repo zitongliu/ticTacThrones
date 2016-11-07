@@ -128,7 +128,6 @@ var boardObject = {
 
 };
 
-
 var playerFactory = function(nameIn,symbolIn) {
   playerObject = {
     name:nameIn,
@@ -145,3 +144,9 @@ var playerFactory = function(nameIn,symbolIn) {
 var player1 = new playerFactory("Steve","X");
 var player2 = new playerFactory("Jim","O");
 boardObject.whoseTurn();
+
+var notify = function(){
+  console.log(this);
+};
+
+$(".boardContainer>div").on("click",notify);
