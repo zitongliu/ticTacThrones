@@ -1,12 +1,13 @@
 
 var boardObject = {
+  won:false,
 
 // The board is represented by a 2 dimensional array. 2 dimensional array is used for scalability.
 // initiall, the board is empty.
   board:[
-    ['E', 'O', 'E'],
-    ['X', 'O', 'E'],
-    ['X', 'O', 'X'],
+    ['E', 'E', 'E'],
+    ['E', 'E', 'E'],
+    ['E', 'E', 'E'],
   ],
 
   // Start of noEmptyTiles Method
@@ -33,11 +34,11 @@ var boardObject = {
     for ( j = 0; j < this.board.length; j+=1 ){
       var horizontalStrike = this.board[j].join("");
       if (horizontalStrike === "XXX"){
-        console.log("X has won!");
+        console.log(player1.name,"has won!");
         winner = "X";
       }
       if (horizontalStrike === "OOO"){
-        console.log("O has won!");
+        console.log(player2.name,"has won!");
         winner = "O";
       }
     }
@@ -48,15 +49,43 @@ var boardObject = {
         verticalStrike = verticalStrike + this.board[j][i];
       }
       if (verticalStrike === "XXX"){
-        console.log("X has won!");
+        console.log(player1.name,"has won!");
         winner = "X";
       }
       if (verticalStrike === "OOO"){
-        console.log("O has won!");
+        console.log(player2.name,"has won!");
         winner = "O";
       }
     }
+    var diagonalOne = "";
+    var diagonalTwo = "";
+    // check diagonal match - left top to right bottom
+    for (j = 0, i = 0; j<this.board.length; j++, i++){
+
+      diagonalOne = diagonalOne + this.board[j][i];
+      if (diagonalOne === "XXX"){
+        console.log(player1.name,"has won!");
+        winner = "X";
+      }
+      if (diagonalOne === "OOO"){
+        console.log(player2.name,"has won!");
+        winnder = "O";
+      }
+    }
+    // check diagonal match - right top to left bottom
+    for (j = 0, i = this.board.length -1; j<this.board.length; j++, i--){
+      diagonalTwo = diagonalTwo + this.board[j][i];
+      if (diagonalTwo === "XXX"){
+        console.log(player1.name,"has won!");
+        winner = "X";
+      }
+      if (diagonalTwo === "OOO"){
+        console.log(player2.name,"has won!");
+        winnder = "O";
+      }
+    }
     if (winner ==="X" || winner ==="O" ){
+      boardObject.won = true;
       return winner;
     }
     return false;
@@ -64,36 +93,55 @@ var boardObject = {
   // End of check win case method
 
 
-  // Start of make move method
   turnCounter: 0,
   whoseTurn: function(){
     var currentPlayer;
     this.turnCounter += 1;
+    if (boardObject.won === true){
+      return currentPlayer;
+    }
     if (this.turnCounter % 2 === 0){
       currentPlayer = "O";
-      console.log("It's O's turn");
+      console.log("It's",player2.name+"'s turn");
     } else {
       currentPlayer = "X";
-      console.log("It's X's turn");
+      console.log("It's",player1.name+"'s turn");
     }
     console.log(this.turnCounter);
     return currentPlayer;
   },
-
-  makeMove: function(rowIn, colIn){
-    var rowNum = rowIn;
-    var colNum = colIn;
-    this.whoseTurn();
-    if (this.turnCounter % 2 === 0){
-      this.board[rowNum][colNum] = "X";
-    }
-    if (this.turnCounter % 2 !== 0){
-      this.board[rowNum][colNum] = "O";
-    }
-  },
+  //// Start of make move method
+  // makeMove: function(rowIn, colIn){
+  //   var rowNum = rowIn;
+  //   var colNum = colIn;
+  //   this.whoseTurn();
+  //   if (this.turnCounter % 2 === 0){
+  //     this.board[rowNum][colNum] = "X";
+  //   }
+  //   if (this.turnCounter % 2 !== 0){
+  //     this.board[rowNum][colNum] = "O";
+  //   }
+  // },
 
 
   // End of make move method
 
 };
+
+
+var playerFactory = function(nameIn,symbolIn) {
+  playerObject = {
+    name:nameIn,
+    symbol:symbolIn,
+    makeMove:function(rowIn,colIn){
+      boardObject.board[rowIn][colIn] = this.symbol;
+      boardObject.checkWinCase();
+      boardObject.whoseTurn();
+    },
+  };
+  return playerObject;
+};
+
+var player1 = new playerFactory("Steve","X");
+var player2 = new playerFactory("Jim","O");
 boardObject.whoseTurn();
