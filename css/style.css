@@ -7,7 +7,11 @@ body {
   height:100%;
   text-align:center;
 }
+p {
+  padding:0px 0px 0px 0px;
+}
 .boardContainer {
+  position:relative;
   width:44vw;
   height:69vh;
   background-color: #ffffff;

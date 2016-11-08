@@ -1,6 +1,5 @@
 
 var boardObject = {
-  won:false,
 
 // The board is represented by a 2 dimensional array. 2 dimensional array is used for scalability.
 // initiall, the board is empty.
@@ -28,6 +27,7 @@ var boardObject = {
   // End of noEmptyTiles method
 
   // Start of check win case method
+  won:false,
   checkWinCase: function(){
     var winner;
     // Check horizontal match
@@ -69,7 +69,7 @@ var boardObject = {
       }
       if (diagonalOne === "OOO"){
         console.log(player2.name,"has won!");
-        winnder = "O";
+        winner = "O";
       }
     }
     // check diagonal match - right top to left bottom
@@ -85,31 +85,51 @@ var boardObject = {
       }
     }
     if (winner ==="X" || winner ==="O" ){
-      boardObject.won = true;
+      this.won = true;
       return winner;
     }
     return false;
   },
   // End of check win case method
 
-
-  turnCounter: 0,
+  turnCounter: 1,
+  currentPlayer:"X",
   whoseTurn: function(){
-    var currentPlayer;
-    this.turnCounter += 1;
-    if (boardObject.won === true){
-      return currentPlayer;
+    if (this.won === true){
+      console.log("inside won true has ran");
+      return true;
     }
-    if (this.turnCounter % 2 === 0){
-      currentPlayer = "O";
-      console.log("It's",player2.name+"'s turn");
+    if (this.currentPlayer === "X"){
+      console.log("It's",player1.name+"'s turn!'");
+    } else if (this.currentPlayer === "O"){
+      console.log("It's",player2.name+"'s turn!'");
     } else {
-      currentPlayer = "X";
-      console.log("It's",player1.name+"'s turn");
+
     }
-    console.log(this.turnCounter);
-    return currentPlayer;
+    return;
   },
+
+
+  // Start of advance turn
+  advanceTurn: function(){
+    if (this.won === true){
+      return true;
+    }
+    this.turnCounter += 1;
+    if (this.currentPlayer ==="X"){
+      this.currentPlayer = "O";
+    } else if (this.currentPlayer ==="O"){
+      this.currentPlayer = "X";
+    } else {
+
+    }
+    return;
+  },
+
+  // end of advance turn
+
+
+
   //// Start of make move method
   // makeMove: function(rowIn, colIn){
   //   var rowNum = rowIn;
@@ -135,18 +155,68 @@ var playerFactory = function(nameIn,symbolIn) {
     makeMove:function(rowIn,colIn){
       boardObject.board[rowIn][colIn] = this.symbol;
       boardObject.checkWinCase();
+      boardObject.advanceTurn();
       boardObject.whoseTurn();
     },
   };
   return playerObject;
 };
 
+var onClickMakeMove = function () {
+  console.log(this);
+  var classOfTileClicked = $(this).attr("class");
+  console.log(classOfTileClicked);
+  if (classOfTileClicked === "tile1"){
+  player1.makeMove(0,0);
+  console.log(this);
+}
+  if (classOfTileClicked === "tile2"){
+  player1.makeMove(0,1);
+  console.log(this);
+}
+  if (classOfTileClicked === "tile3"){
+  player1.makeMove(0,2);
+}
+if (classOfTileClicked === "tile4"){
+player1.makeMove(1,0);
+}
+if (classOfTileClicked === "tile5"){
+player1.makeMove(1,1);
+}
+if (classOfTileClicked === "tile6"){
+player1.makeMove(1,2);
+}
+if (classOfTileClicked === "tile7"){
+player1.makeMove(2,0);
+}
+if (classOfTileClicked === "tile8"){
+player1.makeMove(2,1);
+}
+if (classOfTileClicked === "tile9"){
+player1.makeMove(2,1);
+}
+};
+
+var notify = function(){
+  console.log("notify function is running!");
+};
+
+
+var putSymbolIn = function(){
+  // var $nodeX = $("<p>X</p>");
+  if (boardObject.currentPlayer === "O"){
+    $(this).append("<p>X</p>");
+  }
+  else {
+    $(this).append("<p>O</p>");
+  }
+};
+
+
+
 var player1 = new playerFactory("Steve","X");
 var player2 = new playerFactory("Jim","O");
 boardObject.whoseTurn();
-
-var notify = function(){
-  console.log(this);
-};
-
+$(".boardContainer>div").on("click",onClickMakeMove);
 $(".boardContainer>div").on("click",notify);
+$(".boardContainer>div").on("click",putSymbolIn);
