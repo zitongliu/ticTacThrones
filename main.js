@@ -128,23 +128,22 @@ var boardObject = {
 
   // end of advance turn
 
+  // Start of reset Game
+
+  resetGame: function () {
+    this.board =[
+      ['E', 'E', 'E'],
+      ['E', 'E', 'E'],
+      ['E', 'E', 'E'],
+    ];
+    this.turnCounter = 1;
+    this.currentPlayer = "X";
+    this.won = false;
+    $(".boardContainer p").remove();
+  },
 
 
-  //// Start of make move method
-  // makeMove: function(rowIn, colIn){
-  //   var rowNum = rowIn;
-  //   var colNum = colIn;
-  //   this.whoseTurn();
-  //   if (this.turnCounter % 2 === 0){
-  //     this.board[rowNum][colNum] = "X";
-  //   }
-  //   if (this.turnCounter % 2 !== 0){
-  //     this.board[rowNum][colNum] = "O";
-  //   }
-  // },
 
-
-  // End of make move method
 
 };
 
@@ -163,60 +162,106 @@ var playerFactory = function(nameIn,symbolIn) {
 };
 
 var onClickMakeMove = function () {
-  console.log(this);
   var classOfTileClicked = $(this).attr("class");
-  console.log(classOfTileClicked);
-  if (classOfTileClicked === "tile1"){
+  if ( (classOfTileClicked === "tile1") && (boardObject.currentPlayer === "X") ){
   player1.makeMove(0,0);
-  console.log(this);
-}
-  if (classOfTileClicked === "tile2"){
+  return;
+  }
+  if ( (classOfTileClicked === "tile2") && (boardObject.currentPlayer === "X") ){
   player1.makeMove(0,1);
-  console.log(this);
-}
-  if (classOfTileClicked === "tile3"){
+  return;
+  }
+  if ( (classOfTileClicked === "tile3") && (boardObject.currentPlayer === "X") ){
   player1.makeMove(0,2);
-}
-if (classOfTileClicked === "tile4"){
-player1.makeMove(1,0);
-}
-if (classOfTileClicked === "tile5"){
-player1.makeMove(1,1);
-}
-if (classOfTileClicked === "tile6"){
-player1.makeMove(1,2);
-}
-if (classOfTileClicked === "tile7"){
-player1.makeMove(2,0);
-}
-if (classOfTileClicked === "tile8"){
-player1.makeMove(2,1);
-}
-if (classOfTileClicked === "tile9"){
-player1.makeMove(2,1);
-}
-};
+  return;
+  }
+  if ( (classOfTileClicked === "tile4") && (boardObject.currentPlayer === "X") ){
+  player1.makeMove(1,0);
+  return;
+  }
+  if ( (classOfTileClicked === "tile5") && (boardObject.currentPlayer === "X") ){
+  player1.makeMove(1,1);
+  return;
+  }
+  if ( (classOfTileClicked === "tile6") && (boardObject.currentPlayer === "X")){
+  player1.makeMove(1,2);
+  return;
+  }
+  if ( (classOfTileClicked === "tile7") && (boardObject.currentPlayer === "X") ){
+  player1.makeMove(2,0);
+  return;
+  }
+  if ( (classOfTileClicked === "tile8") && (boardObject.currentPlayer === "X") ){
+  player1.makeMove(2,1);
+  return;
+  }
+  if ( (classOfTileClicked === "tile9") && (boardObject.currentPlayer === "X") ){
+  player1.makeMove(2,2);
+  return;
+  }
+  // For player 2
+  if ( (classOfTileClicked === "tile1") && (boardObject.currentPlayer === "O") ){
+  player2.makeMove(0,0);
+  return;
+  }
+  if ( (classOfTileClicked === "tile2") && (boardObject.currentPlayer === "O") ){
+  player2.makeMove(0,1);
+  return;
+  }
+  if ( (classOfTileClicked === "tile3") && (boardObject.currentPlayer === "O") ){
+  player2.makeMove(0,2);
+  return;
+  }
+  if ( (classOfTileClicked === "tile4") && (boardObject.currentPlayer === "O") ){
+  player2.makeMove(1,0);
+  return;
+  }
+  if ( (classOfTileClicked === "tile5") && (boardObject.currentPlayer === "O") ){
+  player2.makeMove(1,1);
+  return;
+  }
+  if ( (classOfTileClicked === "tile6") && (boardObject.currentPlayer === "O")){
+  player2.makeMove(1,2);
+  return;
+  }
+  if ( (classOfTileClicked === "tile7") && (boardObject.currentPlayer === "O") ){
+  player2.makeMove(2,0);
+  return;
+  }
+  if ( (classOfTileClicked === "tile8") && (boardObject.currentPlayer === "O") ){
+  player2.makeMove(2,1);
+  return;
+  }
+  if ( (classOfTileClicked === "tile9") && (boardObject.currentPlayer === "O") ){
+  player2.makeMove(2,2);
+  return;
+  }
 
-var notify = function(){
-  console.log("notify function is running!");
 };
-
 
 var putSymbolIn = function(){
   // var $nodeX = $("<p>X</p>");
-  if (boardObject.currentPlayer === "O"){
+  if (boardObject.won === true){
+    console.log("Game has ended");
+    return;
+  }
+  if ( (boardObject.currentPlayer === "X") && ( $(this).html()==="" ) ){
     $(this).append("<p>X</p>");
   }
-  else {
+  else if ( (boardObject.currentPlayer === "O") && ( $(this).html()==="" ) ){
     $(this).append("<p>O</p>");
   }
 };
 
-
+var notify = function(){
+  console.log(this);
+};
 
 var player1 = new playerFactory("Steve","X");
 var player2 = new playerFactory("Jim","O");
 boardObject.whoseTurn();
-$(".boardContainer>div").on("click",onClickMakeMove);
-$(".boardContainer>div").on("click",notify);
-$(".boardContainer>div").on("click",putSymbolIn);
+$(".boardContainer td").on("click",notify);
+$(".boardContainer td").on("click",putSymbolIn);
+$(".boardContainer td").on("click",onClickMakeMove);
+
+$("#reset").on("click",boardObject.resetGame);
