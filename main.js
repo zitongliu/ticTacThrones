@@ -81,7 +81,7 @@ var boardObject = {
       }
       if (diagonalTwo === "OOO"){
         console.log(player2.name,"has won!");
-        winnder = "O";
+        winner = "O";
       }
     }
     if (winner ==="X" || winner ==="O" ){
@@ -92,7 +92,6 @@ var boardObject = {
   },
   // End of check win case method
 
-  turnCounter: 1,
   currentPlayer:"X",
   whoseTurn: function(){
     if (this.won === true){
@@ -115,7 +114,6 @@ var boardObject = {
     if (this.won === true){
       return true;
     }
-    this.turnCounter += 1;
     if (this.currentPlayer ==="X"){
       this.currentPlayer = "O";
     } else if (this.currentPlayer ==="O"){
@@ -136,7 +134,7 @@ var boardObject = {
       ['E', 'E', 'E'],
       ['E', 'E', 'E'],
     ];
-    this.turnCounter = 1;
+    console.log(this);
     this.currentPlayer = "X";
     this.won = false;
     $(".boardContainer p").remove();
@@ -144,8 +142,37 @@ var boardObject = {
 
 
 
-
 };
+
+// Start of score counter object
+
+var scoreBoard = {
+  player1:0,
+  player2:0,
+  ai:0,
+  addWin: function(player){
+    winningPlayer = player;
+    if (winningPlayer === "X"){
+      this.player1 += 1;
+    } else if (winningPlayer ==="O"){
+      this.player2 += 1;
+    } else if (winningPlayer === "ai"){
+      this.ai += 1;
+    } else {}
+    return player;
+  },
+};
+
+
+
+
+// End of score counter ojbect
+
+
+
+
+
+
 
 var playerFactory = function(nameIn,symbolIn) {
   playerObject = {
@@ -153,7 +180,25 @@ var playerFactory = function(nameIn,symbolIn) {
     symbol:symbolIn,
     makeMove:function(rowIn,colIn){
       boardObject.board[rowIn][colIn] = this.symbol;
-      boardObject.checkWinCase();
+      var winner = boardObject.checkWinCase();
+      if (winner !== false){
+        var $victoryMessageBox = $("<div></div>").addClass("victory");
+        $victoryMessageBox.css({
+          "width":"50vw",
+          "height":"50vh",
+          "background":"rgba(0,0,0,0.5)",
+          "zIndex":"99999999",
+          "position":"fixed",
+          "top":"25%",
+          "left":"25%",
+          "font-size":"60px",
+          "color":"white",
+          "padding-top":"1em",
+        });
+        $victoryMessageBox.html("You Win");
+        $("body").append($victoryMessageBox);
+      }
+      scoreBoard.addWin(winner);
       boardObject.advanceTurn();
       boardObject.whoseTurn();
     },
@@ -264,4 +309,52 @@ $(".boardContainer td").on("click",notify);
 $(".boardContainer td").on("click",putSymbolIn);
 $(".boardContainer td").on("click",onClickMakeMove);
 
-$("#reset").on("click",boardObject.resetGame);
+var onClickResetGame = function (){
+  boardObject.resetGame();
+};
+$("#reset").on("click",onClickResetGame);
+
+// Create a jQuery node of the side menu
+var $asideMenu = $("aside");
+
+// Create callback function
+var moveSideMenuCenter = function(){
+  $asideMenu.toggleClass("asideClicked");
+};
+
+$asideMenu.on("click",moveSideMenuCenter);
+
+// $asideMenu.on("click", function() {
+  // this will be the dom element
+  // $(this) will be the jquery wrapped
+  // moveSideMenuCenter("arg");
+// })
+
+var $enterName = $("options");
+var expandEnterName = function (){
+  $enterName.animate({
+    width:"400px",
+    height:"200px",
+    bottom:"300px"
+  },2000);
+};
+$enterName.on("click",expandEnterName);
+
+
+// Start - Victory Message
+
+
+
+// End - Victory Message
+
+// Start - update name and score with jQuery
+
+$playerOneName = $("#playerOneName");
+$playerOneScore = $("#playerOneScore");
+
+$playerTwoName = $("#playerTwoName");
+$playerTwoScore = $("#playerTwoScore");
+
+
+
+// End - update name and score with jQuery

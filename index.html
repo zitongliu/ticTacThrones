@@ -5,14 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Tac Toe</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Architects+Daughter" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <header>
   <h1>Tic Tac Toe </h1>
-  <section>
-    <div class="menu">
-      <a id="reset">Reset Game</a>
+  <div class="scoreBoardContainer">
+    <div class="scoreHeadingContainer">
+      <p id="scoreDigits">
+        Score
+      </p>
     </div>
+    <div class="scoreContentContainer">
+      <p id="playerOneName">
+        Player 1 :
+      </p>
+      <p id="playerOneScore">
+        0
+      </p>
+      <p id="playerTwoName">
+        Player 2 :
+      </p>
+      <p id="playerTwoScore">
+        0
+      </p>
+    </div>
+  </div>
+
+  </header>
+  <section>
+    <div id="reset">
+      Reset Game
+    </div>
+    <div id="enterName">
+      Enter Name
+    </div>
+    <div id="theme">
+      Choose Theme
+    </div>
+    <div id="opponent">Choose Opponent</div>
   </section>
   <article>
       <table class="boardContainer">
