@@ -1,5 +1,6 @@
 
 var boardObject = {
+  victoryMessageBoxCount:0,
 
 // The board is represented by a 2 dimensional array. 2 dimensional array is used for scalability.
 // initiall, the board is empty.
@@ -136,13 +137,11 @@ var boardObject = {
       ['E', 'E', 'E'],
     ];
     console.log(this);
-    this.currentPlayer = "X";
+    //this.currentPlayer = "X";
     this.won = false;
     $(".boardContainer p").remove();
+    this.victoryMessageBoxCount = 0;
   },
-
-
-
 };
 
 // Start of score counter object
@@ -178,16 +177,18 @@ var playerFactory = function(nameIn,symbolIn) {
       boardObject.board[rowIn][colIn] = this.symbol;
       var noMoreRoom = boardObject.noEmptyTiles();
       var winner = boardObject.checkWinCase();
+      scoreBoard.addWin(winner);
+      // if statement to check if theres a winner or not. If there is, whether the winner is player 1 "X" or player 2 "O".
       if ( (winner !== false) ||  noMoreRoom){
         var $victoryMessageBox = $("<div></div>").addClass("victory");
         $victoryMessageBox.css({
-          "width":"50vw",
-          "height":"50vh",
+          "width":"40vw",
+          "height":"45vh",
           "background":"rgba(0,0,0,0.5)",
           "zIndex":"99999999",
           "position":"fixed",
-          "top":"25%",
-          "left":"25%",
+          "top":"28%",
+          "left":"30%",
           "font-size":"60px",
           "color":"white",
           "padding-top":"1em",
@@ -202,9 +203,26 @@ var playerFactory = function(nameIn,symbolIn) {
       } else {
         $victoryMessageBox.html("It's a Draw");
       }
+
+      if (boardObject.victoryMessageBoxCount === 0){
         $("body").append($victoryMessageBox);
+
+        // Start - restart button - button inside victory / draw popup box-sizing
+        // Note - javascript - higher priority. Css styling defined here cannot be overwritten by css.
+        var $restartButton = $("<div></div>").addClass("restartButton");
+        $restartButton.html("Play Again");
+
+        $("div.victory").append($restartButton);
+        boardObject.victoryMessageBoxCount = 1;
       }
-      scoreBoard.addWin(winner);
+      if (boardObject.won){
+        $("#playerOneScore").html(scoreBoard.player1);
+        $("#playerTwoScore").html(scoreBoard.player2);
+      }
+
+        // End - restart button
+      }
+
       boardObject.advanceTurn();
       boardObject.whoseTurn();
     },
@@ -347,11 +365,23 @@ var expandEnterName = function (){
 $enterName.on("click",expandEnterName);
 
 
-// Start - Victory Message
+// Start - Victory / Draw restart
 
+var removeBox = function (){
+  boardObject.resetGame();
+};
+$("body").on("click",".restartButton", removeBox);
 
+// remove the button when restart button clicked
+$("body").on("click",".restartButton", function(){
+  $(this).remove();
+});
+// remove the victory / draw message box when restart button clicked
+$("body").on("click",".victory", function(){
+  $(this).remove();
+});
 
-// End - Victory Message
+// End - Victory / Draw restart
 
 // Start - update name and score with jQuery
 

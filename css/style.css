@@ -137,3 +137,27 @@ aside {
   margin-left:2vw;
   margin-top:0px;
 }
+
+.restartButton {
+  width: 40%;
+  height: 10vh ;
+  background: #FF4040 ;
+  z-index: 999999999999 ;
+  position: relative ;
+  margin: 1.2em auto;
+  color: white ;
+  font-size: 0.35em;
+  padding-top: 0.8em;
+  transition: 0.7s all;
+  border: 1px solid black;
+}
+.restartButton:hover {
+  background: #FF4040;
+  cursor:pointer;
+  margin: 1em auto;
+  width:42%;
+  height:11vh;
+  font-size:0.4em;
+  position: relative;
+  z-index: 200;
+}
