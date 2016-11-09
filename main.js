@@ -12,16 +12,18 @@ var boardObject = {
   // Start of noEmptyTiles Method
   // Method that checks if there's empyty tiles left on the board. A for loop inside another for loop. Checks each element inside each array.
   noEmptyTiles: function(){
-    for ( j = 0; j < this.board.length; i += 1) {
+    var stringOfTiles = "";
+    for ( j = 0; j < this.board.length; j+= 1) {
       for ( i = 0; i < this.board[0].length; i +=1 ){
-        if (this.board[j][i] !== "E"){
-          return true;
-        } else {
-          message = "There are still empty tiles";
-          return message;
-        }
+        stringOfTiles += this.board[j][i];
       }
-
+    }
+    if (stringOfTiles.search("E") === -1){
+        console.log("no empty tiles");
+        return true;
+    } else{
+      console.log("Still empty tiles");
+      return false;
     }
   },
   // End of noEmptyTiles method
@@ -95,7 +97,6 @@ var boardObject = {
   currentPlayer:"X",
   whoseTurn: function(){
     if (this.won === true){
-      console.log("inside won true has ran");
       return true;
     }
     if (this.currentPlayer === "X"){
@@ -169,19 +170,15 @@ var scoreBoard = {
 // End of score counter ojbect
 
 
-
-
-
-
-
 var playerFactory = function(nameIn,symbolIn) {
   playerObject = {
     name:nameIn,
     symbol:symbolIn,
     makeMove:function(rowIn,colIn){
       boardObject.board[rowIn][colIn] = this.symbol;
+      var noMoreRoom = boardObject.noEmptyTiles();
       var winner = boardObject.checkWinCase();
-      if (winner !== false){
+      if ( (winner !== false) ||  noMoreRoom){
         var $victoryMessageBox = $("<div></div>").addClass("victory");
         $victoryMessageBox.css({
           "width":"50vw",
@@ -195,7 +192,16 @@ var playerFactory = function(nameIn,symbolIn) {
           "color":"white",
           "padding-top":"1em",
         });
-        $victoryMessageBox.html("You Win");
+        if (winner !== false){
+          if (winner === "X"){
+            $victoryMessageBox.html("Player 1 Wins");
+          }
+          if (winner === "O"){
+            $victoryMessageBox.html("Player 2 Wins");
+          }
+      } else {
+        $victoryMessageBox.html("It's a Draw");
+      }
         $("body").append($victoryMessageBox);
       }
       scoreBoard.addWin(winner);
