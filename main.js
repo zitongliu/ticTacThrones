@@ -140,6 +140,7 @@ var boardObject = {
     //this.currentPlayer = "X";
     this.won = false;
     $(".boardContainer p").remove();
+    $(".boardContainer td img").remove();
     $(".boardContainer td").data("filled","no");
     this.victoryMessageBoxCount = 0;
     this.currentPlayer="X";
@@ -336,13 +337,14 @@ var putSymbolIn = function(){
     console.log("Game has ended");
     return;
   }
-  if ( (boardObject.currentPlayer === "X") && ( $(this).html()==="" ) ){
-    $(this).append("<p>X</p>");
+  if ( (boardObject.currentPlayer === "X") && ( $(this).data("filled")!=="yes" ) ){
+    //$(this).append("<p>X</p>");
 
-    // $(this).append("<img src='images/smiley.jpg'>");
+    $(this).append(playerOneSigil);
   }
-  else if ( (boardObject.currentPlayer === "O") && ( $(this).html()==="" ) ){
-    $(this).append("<p>O</p>");
+  else if ( (boardObject.currentPlayer === "O") && ( $(this).data("filled")!=="yes" ) ){
+    //$(this).append("<p>O</p>");
+    $(this).append(playerTwoSigil);
 
   }
 };
@@ -415,3 +417,27 @@ $playerTwoScore = $("#playerTwoScore");
 
 
 // End - update name and score with jQuery
+
+
+// Music Related javascript
+
+var musicObject = {
+  stannis:'<iframe width="200" height="113" src="https://www.youtube-nocookie.com/embed/9szldJEzD5U?rel=0&amp?rel=0&autoplay=1 ;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>',
+};
+
+// $musicJQNode = $()
+// $(body).on("load",musicObject.stannis).append();
+
+
+// House sigils
+
+var sigils = {
+  baratheon:"<img src='images/baratheon.png'>",
+  lannister:"<img src='images/lannister.png'>",
+  stark:"<img src='images/stark.png'>",
+  tyrell:"<img src='images/tyrell.png'>",
+  greyjoy:"<img src='images/greyjoy.png'>",
+  targ:"<img src='images/targ.png'>",
+};
+var playerOneSigil = sigils.greyjoy;
+var playerTwoSigil = sigils.tyrell;
