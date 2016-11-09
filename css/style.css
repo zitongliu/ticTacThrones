@@ -25,7 +25,7 @@ p {
 }
 .tile1, .tile2, .tile3, .tile4, .tile5, .tile6, .tile7, .tile8, .tile9 {
   cursor:pointer;;
-  font-size:2.5em;
+  font-size:2.3em;
 }
 .tile1:hover, .tile2:hover, .tile3:hover, .tile4:hover, .tile5:hover, .tile6:hover, .tile7:hover, .tile8:hover, .tile9:hover {
   background-color: #FF4040;
@@ -160,4 +160,9 @@ aside {
   font-size:0.4em;
   position: relative;
   z-index: 200;
+}
+img {
+  width:100px;
+  height:100px;
+  z-index:999999999999;
 }
