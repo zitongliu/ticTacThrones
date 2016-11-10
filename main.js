@@ -138,12 +138,14 @@ var boardObject = {
     ];
     console.log(this);
     //this.currentPlayer = "X";
+    preventScoreAfterVictory = 1;
     this.won = false;
     $(".boardContainer p").remove();
     $(".boardContainer td img").remove();
     $(".boardContainer td").data("filled","no");
     this.victoryMessageBoxCount = 0;
     this.currentPlayer="X";
+
   },
 };
 
@@ -154,7 +156,7 @@ var scoreBoard = {
   player2:0,
   ai:0,
   addWin: function(player){
-    winningPlayer = player;
+    var winningPlayer = player;
     if (winningPlayer === "X"){
       this.player1 += 1;
     } else if (winningPlayer ==="O"){
@@ -166,12 +168,9 @@ var scoreBoard = {
   },
 };
 
-
-
-
 // End of score counter ojbect
 
-
+var preventScoreAfterVictory = 1;
 var playerFactory = function(nameIn,symbolIn) {
   playerObject = {
     name:nameIn,
@@ -218,9 +217,10 @@ var playerFactory = function(nameIn,symbolIn) {
         $("div.victory").append($restartButton);
         boardObject.victoryMessageBoxCount = 1;
       }
-      if (boardObject.won){
+      if (boardObject.won && (preventScoreAfterVictory===1) ){
         $("#playerOneScore").html(scoreBoard.player1);
         $("#playerTwoScore").html(scoreBoard.player2);
+        preventScoreAfterVictory =0;
       }
 
         // End - restart button
@@ -432,6 +432,8 @@ var musicObject = {
 // House sigils
 
 var sigils = {
+  playerOneSelect:1,
+  playerTwoSelect:0,
   baratheon:"<img src='images/baratheon.png'>",
   lannister:"<img src='images/lannister.png'>",
   stark:"<img src='images/stark.png'>",
@@ -439,5 +441,142 @@ var sigils = {
   greyjoy:"<img src='images/greyjoy.png'>",
   targ:"<img src='images/targ.png'>",
 };
-var playerOneSigil = sigils.greyjoy;
-var playerTwoSigil = sigils.tyrell;
+
+
+    console.log("this thing ran");
+
+
+var playerOneSigil = sigils.stark;
+var playerTwoSigil = sigils.lannister;
+
+$(".stark").on("click",function(){
+  if (sigils.playerOneSelect === 1 ){
+    playerOneSigil = sigils.stark;
+    sigils.playerOneSelect = 0;
+    sigils.playerTwoSelect = 1;
+    $("#playerSelectHouse").html("Player 2 Select House");
+    return;
+  }
+  if (sigils.playerTwoSelect === 1){
+    playerTwoSigil = sigils.stark;
+    sigils.playerTwoSelect = 0;
+    sigils.playerOneSelect=1;
+    $("#playerSelectHouse").html("Player 1 Select House");
+    $(".houseContainer").toggleClass("houseToggleOff");
+    return;
+  }
+});
+$(".lannister").on("click",function(){
+  if (sigils.playerOneSelect === 1 ){
+    playerOneSigil = sigils.lannister;
+    sigils.playerOneSelect = 0;
+    sigils.playerTwoSelect = 1;
+    $("#playerSelectHouse").html("Player 2 Select House");
+    return;
+  }
+  if (sigils.playerTwoSelect === 1){
+    playerTwoSigil = sigils.lannister;
+    sigils.playerTwoSelect = 0;
+    sigils.playerOneSelect =1;
+    console.log("Did this ran?");
+    $("#playerSelectHouse").html("Player 1 Select House");
+    $(".houseContainer").toggleClass("houseToggleOff");
+    return;
+  }
+});
+$(".baratheon").on("click",function(){
+  if (sigils.playerOneSelect === 1 ){
+    playerOneSigil = sigils.baratheon;
+    sigils.playerOneSelect = 0;
+    sigils.playerTwoSelect = 1;
+    $("#playerSelectHouse").html("Player 2 Select House");
+    return;
+  }
+  if (sigils.playerTwoSelect === 1){
+    playerTwoSigil = sigils.baratheon;
+    sigils.playerTwoSelect = 0;
+    sigils.playerOneSelect=1;
+    $("#playerSelectHouse").html("Player 1 Select House");
+    $(".houseContainer").toggleClass("houseToggleOff");
+    return;
+  }
+});
+$(".tyrell").on("click",function(){
+  if (sigils.playerOneSelect === 1 ){
+    playerOneSigil = sigils.tyrell;
+    sigils.playerOneSelect = 0;
+    sigils.playerTwoSelect = 1;
+    $("#playerSelectHouse").html("Player 2 Select House");
+    return;
+  }
+  if (sigils.playerTwoSelect === 1){
+    playerTwoSigil = sigils.tyrell;
+    sigils.playerTwoSelect = 0;
+    sigils.playerOneSelect=1;
+    $("#playerSelectHouse").html("Player 1 Select House");
+    $(".houseContainer").toggleClass("houseToggleOff");
+    return;
+  }
+});
+$(".greyjoy").on("click",function(){
+  if (sigils.playerOneSelect === 1 ){
+    playerOneSigil = sigils.greyjoy;
+    sigils.playerOneSelect = 0;
+    sigils.playerTwoSelect = 1;
+    $("#playerSelectHouse").html("Player 2 Select House");
+    return;
+  }
+  if (sigils.playerTwoSelect === 1){
+    playerTwoSigil = sigils.greyjoy;
+    sigils.playerTwoSelect = 0;
+    sigils.playerOneSelect=1;
+    $("#playerSelectHouse").html("Player 1 Select House");
+    $(".houseContainer").toggleClass("houseToggleOff");
+    return;
+  }
+});
+$(".targ").on("click",function(){
+  if (sigils.playerOneSelect === 1 ){
+    playerOneSigil = sigils.targ;
+    sigils.playerOneSelect = 0;
+    sigils.playerTwoSelect = 1;
+    $("#playerSelectHouse").html("Player 2 Select House");
+    return;
+  }
+  if (sigils.playerTwoSelect === 1){
+    playerTwoSigil = sigils.targ;
+    sigils.playerTwoSelect = 0;
+    sigils.playerOneSelect=1;
+    $("#playerSelectHouse").html("Player 1 Select House");
+    $(".houseContainer").toggleClass("houseToggleOff");
+    return;
+  }
+});
+$(".houseContainer div").on("click",boardObject.resetGame);
+var environment = {
+  battleOnIce:"../images/battleOnIce.jpg",
+  throneRoom:"../images/castleThrone",
+};
+$(".environment1").on("click", function(){
+  $("body").css({
+    "backgroundImage":"url('images/battleOnIce.jpg')"
+  });
+});
+$(".environment2").on("click", function(){
+  $("body").css({
+    "backgroundImage":"url('images/theWall.jpg')"
+  });
+});
+$(".environment3").on("click", function(){
+  $("body").css({
+    "backgroundImage":"url('images/kingsLanding.jpg')"
+  });
+});
+
+$("#location").on("click",function(){
+  $(".environmentContainer").toggleClass("environmentToggleOff");
+});
+
+$("#house").on("click", function(){
+  $(".houseContainer").toggleClass("houseToggleOff");
+});

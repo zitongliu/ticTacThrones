@@ -9,7 +9,7 @@ body {
   height:100%;
   text-align:center;
   margin-top:20px;
-  background-image:url("http://earnthis.net/wp-content/uploads/2014/12/throne.jpg");
+  background-image:url("../images/kingsLanding.jpg");
   background-size:cover;
   background-position:center;
 }
@@ -83,7 +83,7 @@ aside {
 }
 
 
-#reset, #enterName, #theme, #opponent {
+#reset, #enterName, #location, #house {
   position:relative;
   display:inline-block;
   float:left;
@@ -96,7 +96,7 @@ aside {
   padding-top:2em;
   border:1px solid black;
 }
-#opponent:hover, #reset:hover, #enterName:hover, #theme:hover {
+#house:hover, #reset:hover, #enterName:hover, #location:hover {
   background-color: #FF4040;
   cursor:pointer;
 }
@@ -169,4 +169,109 @@ img {
   width:100px;
   height:100px;
   z-index:999999999999;
+}
+
+.environmentContainer {
+  width: 15vw;
+  height: 60vh;
+  background-color: background: rgba(0, 0, 0, 0.5);
+  position:fixed;
+  right:0px;
+  top:20%;
+  transition:1s all;
+
+}
+.environment1, .environment2, .environment3 {
+  position:relative;
+  float:right;
+  width:15vw;
+  height:20vh;
+  background-color: black;
+  border: 1px solid black;
+  opacity:0.4;
+  font-size:1.8em;
+  color:white;
+}
+.environment1 {
+  background-image: url("../images/battleOnIce.jpg");
+  background-size:cover;
+}
+.environment2 {
+  background-image: url("../images/theWall.jpg");
+  background-size:cover;
+}
+.environment3 {
+  background-image: url("../images/kingsLanding.jpg");
+  background-size:cover;
+}
+.environment1:hover, .environment2:hover, .environment3:hover {
+  opacity:1;
+  cursor:pointer;
+}
+.environmentToggleOff {
+  right:-18vw;
+}
+.houseContainer {
+  width:40vw;
+  height:60vh;
+  position:fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  left:30%;
+  bottom:20%;
+  opacity:0.9;
+  transition:2.5s;
+}
+.stark, .lannister, .baratheon, .tyrell, .greyjoy, .targ {
+  width:33.1%;
+  height:40%;
+  float:left;
+  position:relative;
+  border: 1px solid black;
+}
+.stark {
+  background-image:url("../images/stark.png");
+  background-position:center;
+  background-size:auto;
+  background-repeat:no-repeat;;
+}
+.lannister {
+  background-image:url("../images/lannister.png");
+  background-position:center;
+  background-size:auto;
+  background-repeat:no-repeat;;
+}
+.baratheon {
+  background-image:url("../images/baratheon.png");
+  background-position:center;
+  background-size:auto;
+  background-repeat:no-repeat;;
+}
+.tyrell {
+  background-image:url("../images/tyrell.png");
+  background-position:center;
+  background-size:auto;
+  background-repeat:no-repeat;;
+}
+.greyjoy {
+  background-image:url("../images/greyjoy.png");
+  background-position:center;
+  background-size:auto;
+  background-repeat:no-repeat;;
+}
+.targ {
+  background-image:url("../images/targ.png");
+  background-position:center;
+  background-size:auto;
+  background-repeat:no-repeat;;
+}
+.stark:hover, .lannister:hover, .baratheon:hover, .tyrell:hover, .greyjoy:hover, .targ:hover {
+  background: red;
+  opacity:0.5;
+  cursor:pointer;
+}
+.houseToggleOff {
+  bottom: -65vh;
+}
+#playerSelectHouse {
+  color:white;
 }
