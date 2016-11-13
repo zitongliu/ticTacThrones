@@ -1,8 +1,10 @@
 # Tic Tac Thrones - A General Assembly Project
 
 Align yourself with a house, choose your battleground, play a game of tic tac thrones in the world of A Song of Ice and Fire.
+https://zitongliu.github.io/ticTacThrones/
 
-## Built with HTML5, CSS3, Javascript, jQuery.
+## Built With
+HTML5, CSS3, Javascript, jQuery.
 
 ## Dependencies (Included)
 1. jQuery
@@ -11,10 +13,12 @@ Align yourself with a house, choose your battleground, play a game of tic tac th
   * Architects Daughter
 
 
-## Creator: Steve Liu
+## Creator
+Steve Liu
 
-## Credits:
-All content and themes used in this project belongs to its perspective owners.
+## Credits
+All content and themes used in this project belongs to its rightful owners.
+
 George R.R Martin - A Song of Ice and Fire Series
 
 SullenScythe - Battle of Ice Image
