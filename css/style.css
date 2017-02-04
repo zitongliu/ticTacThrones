@@ -326,8 +326,9 @@ img {
 
   .boardContainer {
     position:relative;
-    width:280px;
-    height:280px;
+
+    width:260px;
+    height:260px;
     background-color: rgba(215, 190, 159, 0.5);
     margin:auto auto;
 
@@ -415,10 +416,15 @@ img {
     z-index: 9999999999;
     position: fixed;
     top: 5%;
-    left: 5%;
+    left: 10%;
     font-size: 4em;
     color: white;
     padding-top: 0.5em;
+  }
+
+  .restartButton {
+    width: 70vw;
+    height: 15vh;
   }
 
 }
