@@ -184,16 +184,16 @@ var playerFactory = function(nameIn,symbolIn) {
       if ( (winner !== false) ||  noMoreRoom){
         var $victoryMessageBox = $("<div></div>").addClass("victory");
         $victoryMessageBox.css({
-          "width":"40vw",
-          "height":"45vh",
-          "background":"rgba(0,0,0,0.5)",
-          "zIndex":"99999999",
-          "position":"fixed",
-          "top":"28%",
-          "left":"30%",
-          "font-size":"60px",
-          "color":"white",
-          "padding-top":"1em",
+          // "width":"40vw",
+          // "height":"45vh",
+          // "background":"rgba(0,0,0,0.5)",
+          // "zIndex":"99999999",
+          // "position":"fixed",
+          // "top":"28%",
+          // "left":"30%",
+          // "font-size":"60px",
+          // "color":"white",
+          // "padding-top":"1em",
         });
         if (winner !== false){
           if (winner === "X"){
